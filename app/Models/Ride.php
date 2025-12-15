@@ -2,9 +2,37 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ride extends Model
 {
-    protected $guarded = ['id']; // Izinkan semua kolom diisi kecuali ID
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'driver_id',
+        'pickup_location',
+        'dropoff_location',
+        'price',
+        'status'
+    ];
+
+    protected $casts = [
+        'price' => 'decimal:2',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
+
+    // Relasi ke User (penumpang)
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Relasi ke Driver (juga User)
+    public function driver()
+    {
+        return $this->belongsTo(User::class, 'driver_id');
+    }
 }
