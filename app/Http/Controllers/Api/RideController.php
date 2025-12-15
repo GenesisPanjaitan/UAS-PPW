@@ -9,16 +9,13 @@ use Illuminate\Support\Facades\Validator;
 
 class RideController extends Controller
 {
-    /**
-     * 1. LIST ALL RIDES (GET /api/rides)
-     * Menampilkan semua data ride dengan paginasi
-     */
+
     public function index(Request $request)
     {
         try {
             $perPage = $request->get('per_page', 10);
-            $status = $request->get('status'); // Filter berdasarkan status
-            
+            $status = $request->get('status'); 
+
             $query = Ride::with(['user', 'driver']);
             
             if ($status) {
@@ -42,10 +39,7 @@ class RideController extends Controller
         }
     }
 
-    /**
-     * 2. CREATE RIDE (POST /api/rides)
-     * Membuat order baru dengan validasi ketat
-     */
+  
     public function store(Request $request)
     {
         // Validasi Input
@@ -99,10 +93,7 @@ class RideController extends Controller
         }
     }
 
-    /**
-     * 3. SHOW RIDE DETAIL (GET /api/rides/{id})
-     * Menampilkan detail ride berdasarkan ID
-     */
+  
     public function show($id)
     {
         try {
@@ -129,10 +120,7 @@ class RideController extends Controller
         }
     }
 
-    /**
-     * 4. UPDATE RIDE (PUT /api/rides/{id})
-     * Mengupdate data ride (hanya bisa dilakukan jika status pending)
-     */
+ 
     public function update(Request $request, $id)
     {
         try {
@@ -185,10 +173,6 @@ class RideController extends Controller
         }
     }
 
-    /**
-     * 5. DELETE RIDE (DELETE /api/rides/{id})
-     * Menghapus ride (hanya bisa dilakukan jika status pending/canceled)
-     */
     public function destroy($id)
     {
         try {
@@ -225,10 +209,6 @@ class RideController extends Controller
         }
     }
 
-    /**
-     * 6. ACCEPT RIDE (PUT /api/rides/{id}/accept)
-     * Driver menerima order
-     */
     public function accept($id, Request $request)
     {
         try {
@@ -282,11 +262,7 @@ class RideController extends Controller
             ], 500);
         }
     }
-    
-    /**
-     * 7. COMPLETE RIDE (PUT /api/rides/{id}/complete)
-     * Menyelesaikan perjalanan
-     */
+  
     public function complete($id)
     {
         try {
@@ -324,10 +300,7 @@ class RideController extends Controller
         }
     }
 
-    /**
-     * 8. CANCEL RIDE (PUT /api/rides/{id}/cancel)
-     * Membatalkan order
-     */
+    
     public function cancel($id)
     {
         try {

@@ -24,13 +24,12 @@ class Ride extends Model
         'updated_at' => 'datetime'
     ];
 
-    // Relasi ke User (penumpang)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relasi ke Driver (juga User)
+   
     public function driver()
     {
         return $this->belongsTo(User::class, 'driver_id');
